@@ -1,0 +1,95 @@
+[gd_scene load_steps=12 format=3 uid="uid://dcttianmlh5g8"]
+
+[ext_resource type="Texture2D" uid="uid://bqf5xvtsrma4x" path="res://background sprites/Clouds/Clouds 2/1.png" id="1_v7m06"]
+[ext_resource type="Texture2D" uid="uid://bf8wxtcyf06dl" path="res://background sprites/Clouds/Clouds 2/2.png" id="2_q4lrp"]
+[ext_resource type="Texture2D" uid="uid://cno02ey1v7erq" path="res://background sprites/Clouds/Clouds 2/3.png" id="3_55qjx"]
+[ext_resource type="Script" path="res://scripts/Whspy Clouds.gd" id="3_808qp"]
+[ext_resource type="Texture2D" uid="uid://b1c75kt21wd71" path="res://background sprites/Clouds/Clouds 2/4.png" id="4_jj0x5"]
+[ext_resource type="Script" path="res://scripts/bottom Clouds.gd" id="5_jhh7t"]
+[ext_resource type="Script" path="res://scripts/Mountain cloud.gd" id="7_fv4q8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2bl4i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_31j6a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m0f70"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7tasa"]
+
+[node name="Node2D" type="Node2D"]
+z_index = -2
+scale = Vector2(1.7, 1.7)
+
+[node name="Background Colour" type="Sprite2D" parent="."]
+z_index = -2
+texture = ExtResource("1_v7m06")
+
+[node name="Whspy Clouds" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("2_q4lrp")
+script = ExtResource("3_808qp")
+
+[node name="Whspy Clouds2" type="Sprite2D" parent="Whspy Clouds"]
+position = Vector2(-576, 0)
+texture = ExtResource("2_q4lrp")
+
+[node name="Area2D" type="Area2D" parent="Whspy Clouds/Whspy Clouds2"]
+position = Vector2(276, -115)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Whspy Clouds/Whspy Clouds2/Area2D"]
+position = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_2bl4i")
+
+[node name="bottom Clouds" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("3_55qjx")
+script = ExtResource("5_jhh7t")
+
+[node name="bottom Clouds2" type="Sprite2D" parent="bottom Clouds"]
+position = Vector2(-576, 0)
+texture = ExtResource("3_55qjx")
+
+[node name="Area2D" type="Area2D" parent="bottom Clouds/bottom Clouds2"]
+position = Vector2(276.5, 140)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bottom Clouds/bottom Clouds2/Area2D"]
+shape = SubResource("RectangleShape2D_31j6a")
+
+[node name="Mountain cloud" type="Sprite2D" parent="."]
+texture = ExtResource("4_jj0x5")
+script = ExtResource("7_fv4q8")
+
+[node name="Mountain cloud2" type="Sprite2D" parent="Mountain cloud"]
+position = Vector2(-577, 0)
+texture = ExtResource("4_jj0x5")
+
+[node name="Area2D" type="Area2D" parent="Mountain cloud/Mountain cloud2"]
+position = Vector2(278, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mountain cloud/Mountain cloud2/Area2D"]
+shape = SubResource("RectangleShape2D_m0f70")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="reset whispy" type="Area2D" parent="."]
+position = Vector2(297, -115)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="reset whispy"]
+shape = SubResource("RectangleShape2D_7tasa")
+
+[node name="reset bottom" type="Area2D" parent="."]
+position = Vector2(297, 140)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="reset bottom"]
+shape = SubResource("RectangleShape2D_7tasa")
+
+[node name="reset Mountain" type="Area2D" parent="."]
+position = Vector2(297, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="reset Mountain"]
+shape = SubResource("RectangleShape2D_7tasa")
+
+[connection signal="area_entered" from="Whspy Clouds/Whspy Clouds2/Area2D" to="Whspy Clouds" method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="bottom Clouds/bottom Clouds2/Area2D" to="bottom Clouds" method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="Mountain cloud/Mountain cloud2/Area2D" to="Mountain cloud" method="_on_area_2d_area_entered"]

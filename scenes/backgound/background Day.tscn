@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://b32kdpkd31j25"]
+
+[ext_resource type="Texture2D" uid="uid://b2gk1pco0jca3" path="res://background sprites/Clouds/Clouds 1/1.png" id="1_ql8md"]
+[ext_resource type="Texture2D" uid="uid://dg878srjhjk8i" path="res://background sprites/Clouds/Clouds 1/2.png" id="2_wws80"]
+[ext_resource type="Script" path="res://scripts/low clouds.gd" id="3_ha82i"]
+[ext_resource type="Texture2D" uid="uid://qwu3mqj0y2n" path="res://background sprites/Clouds/Clouds 1/4.png" id="4_fqawl"]
+[ext_resource type="Script" path="res://scripts/big cloud.gd" id="5_kl6kb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e53sj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a1ldp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q13hp"]
+
+[node name="day" type="Node2D"]
+scale = Vector2(1.7, 1.7)
+
+[node name="background colour" type="Sprite2D" parent="."]
+z_index = -2
+texture = ExtResource("1_ql8md")
+
+[node name="low clouds" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("2_wws80")
+script = ExtResource("3_ha82i")
+
+[node name="low clouds2" type="Sprite2D" parent="low clouds"]
+position = Vector2(-576, 0)
+texture = ExtResource("2_wws80")
+
+[node name="Area2D" type="Area2D" parent="low clouds/low clouds2"]
+position = Vector2(280, 127)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="low clouds/low clouds2/Area2D"]
+shape = SubResource("RectangleShape2D_e53sj")
+
+[node name="big cloud" type="Sprite2D" parent="."]
+texture = ExtResource("4_fqawl")
+script = ExtResource("5_kl6kb")
+
+[node name="big cloud2" type="Sprite2D" parent="big cloud"]
+position = Vector2(-576, 0)
+texture = ExtResource("4_fqawl")
+
+[node name="Area2D" type="Area2D" parent="big cloud/big cloud2"]
+position = Vector2(280, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="big cloud/big cloud2/Area2D"]
+shape = SubResource("RectangleShape2D_a1ldp")
+
+[node name="reset low clouds" type="Area2D" parent="."]
+position = Vector2(301, 127)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="reset low clouds"]
+shape = SubResource("RectangleShape2D_q13hp")
+
+[node name="reset big cloud" type="Area2D" parent="."]
+position = Vector2(301, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="reset big cloud"]
+shape = SubResource("RectangleShape2D_q13hp")
+
+[connection signal="area_entered" from="low clouds/low clouds2/Area2D" to="low clouds" method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="big cloud/big cloud2/Area2D" to="big cloud" method="_on_area_2d_area_entered"]
